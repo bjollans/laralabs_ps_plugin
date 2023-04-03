@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export const LaraImage = (props) => {
     const [img, setImg] = useState();
+    const [selected, setSelected] = useState();
 
     const fetchImage = async () => {
       const res = await fetch(props.imageUrl);
@@ -16,7 +17,10 @@ export const LaraImage = (props) => {
   
     return (
       <>
-        <img width="80%" src={img} alt="icons" />
+        <img 
+        onClick={() => setSelected(!selected)}
+        class={selected? "laraimageselected" : "laraimage"} 
+        width={selected? props.width+10 : props.width} src={img} alt="icons" />
       </>
     );
 } 

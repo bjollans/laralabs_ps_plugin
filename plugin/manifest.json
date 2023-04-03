@@ -25,7 +25,8 @@
     "network": {
       "domains": [
           "https://images.unsplash.com",
-          "https://petapixel.com"
+          "https://y6uchwsnucplc5fl7riiza6hqy0wpmuf.lambda-url.eu-central-1.on.aws",
+          "http://laralabs.s3-website.us-east-2.amazonaws.com"
       ]
     },
     "webview": {

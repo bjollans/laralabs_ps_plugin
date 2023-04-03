@@ -1,14 +1,29 @@
 import React from "react";
 
-import { LaraImage } from "../components/LaraImage.jsx";
-import { LaraPrompt } from "../components/LaraPrompt.jsx";
-import { PlayIcon } from "../components/Icons.jsx";
+import { LaraCreateTab } from "../components/LaraCreateTab.jsx";
+import "../components/TabFix.css";
 
 export const LaraLabs = () => {
+
+
+
     return (
         <>
-            <LaraPrompt/>
-            <LaraImage imageUrl="https://petapixel.com/assets/uploads/2021/12/The-Best-Plugins-for-Photoshop-and-Lightroom-in-2021-800x420.jpg"/>
+            <div class="sp-tabs">
+                <div class="sp-tab selected" id="sp-create-tab">
+                    <sp-label>Create</sp-label>
+                </div>
+                <div class="sp-tab" id="sp-history-tab">
+                    <sp-label>History</sp-label>
+                </div>
+                <div class="sp-tab-page visible-hack" id="sp-create-tab">
+                    <LaraCreateTab/>
+                </div>
+                <div class="sp-tab-page visible-hack" style={{visibility:"hidden"}} id="sp-history-tab">
+                    <p>History...</p>
+                </div>
+            </div>
         </>
+
     );
-    }
+}

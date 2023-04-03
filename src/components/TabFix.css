@@ -1,0 +1,84 @@
+.sp-tabs {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid #3e3e3e;
+}
+
+.sp-tab {
+    margin-right: 12px;
+}
+
+.sp-tab sp-label {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.sp-tab:hover sp-label {
+    color: white;
+}
+
+.sp-tab.selected {
+    border-bottom: 2px solid white;
+    margin-bottom: -2px;
+}
+
+.sp-tab.selected sp-label {
+    color: white;
+}
+
+@media (prefers-color-scheme: light), (prefers-color-scheme: lightest) {
+    .sp-tabs {
+        border-bottom: 2px solid #b8b8b8;
+    }
+
+    .sp-tab sp-label {
+        color: rgba(0, 0, 0, 0.66);
+    }
+
+    .sp-tab:hover sp-label {
+        color: black;
+    }
+
+    .sp-tab.selected {
+        border-bottom: 2px solid black;
+    }
+
+    .sp-tab.selected sp-label {
+        color: black;
+    }
+}
+
+.sp-tab-page {
+    visibility: hidden;
+    /* display: none; */
+    flex: 1 1 auto;
+    /* overflow: scroll; */
+    overflow-y: scroll;
+    padding: 12px 0;
+    flex-direction: column;
+}
+
+.sp-tab-page.visible-hack {
+    display: flex;
+    /* overflow: hidden; */
+    /* overflow-y: scroll; */
+    /* position: fixed; */
+    top: 25px;
+    visibility: visible;
+    max-width: 100%;
+    width: 100%;
+    /* margin: 0px; */
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sp-tab-page.visible {
+    display: flex;
+}
+
+.sp-tab-page > * {
+    flex: 0 0 auto;
+}
