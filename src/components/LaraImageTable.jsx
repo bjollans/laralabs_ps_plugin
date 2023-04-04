@@ -18,7 +18,9 @@ export const LaraImageTable = (props) => {
       };
 
     const cleanSelected = () => {
-        props.imageIds.forEach((imageId) => cellRefs[imageId].className = "");
+        props.imageIds.forEach((imageId) => {
+            if(imageId in cellRefs) cellRefs[imageId].className = ""
+        });
     }
 
     const downloadIt = async () =>  {
@@ -38,7 +40,6 @@ export const LaraImageTable = (props) => {
             await newDocument.close();
           }
           cleanSelected();
-          setSelectedImg(null);
         } catch (e) {
           console.log(e);
         }
