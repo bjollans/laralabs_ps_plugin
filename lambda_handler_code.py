@@ -36,7 +36,7 @@ def lambda_handler(event, context):
    
 def upload_img(id, base64_img):
     try:
-        s3.put_object(Body=base64.b64decode(base64_img), Bucket=bucket, Key=f'{output_key}/{id}.png')
+        s3.put_object(Body=base64.b64decode(base64_img), Bucket=bucket, Key=f'{input_key}/{id}.png')
         return {
             'headers': { "Content-Type": "json" },
             'statusCode': 200,
@@ -56,7 +56,7 @@ def poll(id):
         return {
             'headers': { "Content-Type": "json" },
             'statusCode': 200,
-            'body': json.dumps('ready' if len(response['Contents']) >=4 else 'processing')
+            'body': json.dumps('processing' if 'Contents' not in response or len(response['Contents']) < 4 else 'ready')
         }
     except ClientError as e:
         logging.error(e)
