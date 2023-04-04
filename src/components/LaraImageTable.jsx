@@ -19,7 +19,6 @@ export const LaraImageTable = ({jobId}) => {
         if (tries < 1) return;
         console.log("polling with tries left: " + tries);
         return fetch(url).then(response => response.text()).then((text) => {
-            console.log(text);
             if(!text.includes("ready")) {
                 return wait(delay).then(()=> pollImageReadiness(url, delay,tries-1));
             }

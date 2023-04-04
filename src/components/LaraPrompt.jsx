@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export const LaraPrompt = (props) => {
     const [prompt, setPrompt] = useState();
+    const [useSketch, setUseSketch] = useState(false);
 
     return (
         <>
@@ -14,8 +15,8 @@ export const LaraPrompt = (props) => {
                 value={prompt}
                 onInput={(event) => setPrompt(event.target.value)}/>
             <div style={{margin: "10px", alignItems:"top"}}>
-                <sp-checkbox size="m" width="80%" >Create from sketch</sp-checkbox>
-                <sp-button onClick={() => props.generate(prompt)}>Create</sp-button>
+                <sp-checkbox onClick={() => setUseSketch(!useSketch)} size="m" width="80%" >Create from sketch</sp-checkbox>
+                <sp-button onClick={() => props.generate(prompt, useSketch)}>Create</sp-button>
             </div>
         </>
     );
