@@ -2,15 +2,32 @@ import React, { useEffect, useState } from "react";
 import { LaraImage } from "../components/LaraImage.jsx";
 import "../components/LaraImageTable.css";
 
-export const LaraImageTable = (props) => {
+export const LaraImageTable = ({jobId}) => {
     const [selectedImg, setSelectedImg] = useState();
     const [cells, setCells] = useState([]);
     const imageBaseURI = 'https://y6uchwsnucplc5fl7riiza6hqy0wpmuf.lambda-url.eu-central-1.on.aws/?id=';
     const columns = 2;
 
     const cellRefs = {};
+    const imageIds = [0,1,2,3].map((x) => jobId + "_" + x);
+    
+    function wait(delay){
+        return new Promise((resolve) => setTimeout(resolve, delay));
+    }
+
+    const pollImageReadiness = async (url, delay, tries) => {
+        if (tries < 1) return;
+        console.log("polling with tries left: " + tries);
+        return fetch(url).then(response => response.text()).then((text) => {
+            console.log(text);
+            if(!text.includes("ready")) {
+                return wait(delay).then(()=> pollImageReadiness(url, delay,tries-1));
+            }
+        });
+    }
 
     const fetchImage = async (imageUrl) => {
+        console.log("fetching image");
         const res = await fetch(imageUrl);
         const imageBlob = await res.blob();
         const imageObjectURL = URL.createObjectURL(imageBlob);
@@ -18,7 +35,7 @@ export const LaraImageTable = (props) => {
       };
 
     const cleanSelected = () => {
-        props.imageIds.forEach((imageId) => {
+        imageIds.forEach((imageId) => {
             if(imageId in cellRefs) cellRefs[imageId].className = ""
         });
     }
@@ -82,10 +99,11 @@ export const LaraImageTable = (props) => {
     }
     
     useEffect(() => {
-        Promise.all(props.imageIds
-            .map(async (imageId) => await laraImageCell(imageId)))
+        const pollUrl = imageBaseURI + jobId + "&poll=true";
+        pollImageReadiness(pollUrl, 1000, 40)
+            .then(() => Promise.all(imageIds.map(async (imageId) => await laraImageCell(imageId))))
             .then((values) => setCells(values));
-      }, []);
+      }, [jobId]);
     
     return (
         <>

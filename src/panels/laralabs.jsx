@@ -5,8 +5,6 @@ import "../components/TabFix.css";
 
 export const LaraLabs = () => {
 
-
-
     return (
         <>
             <div className="sp-tabs">

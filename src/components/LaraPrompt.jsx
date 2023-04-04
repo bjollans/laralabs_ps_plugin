@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export const LaraPrompt = (props) => {
-
-    const doGenCall = async () => {
-        // 1.upload file if needed
-        // 2.upload instruction json
-        // const res = await fetch(props.imageUrl);
-      };
+    const [prompt, setPrompt] = useState();
 
     return (
         <>
-            <sp-textarea id="prompt-0" width="100%" multiline grows placeholder="Describe what to create"/>
+            <sp-textarea 
+                id="prompt-0" 
+                width="100%" 
+                multiline 
+                grows 
+                placeholder="Describe what to create"
+                value={prompt}
+                onInput={(event) => setPrompt(event.target.value)}/>
             <div style={{margin: "10px", alignItems:"top"}}>
                 <sp-checkbox size="m" width="80%" >Create from sketch</sp-checkbox>
-                <sp-button>Create</sp-button>
+                <sp-button onClick={() => props.generate(prompt)}>Create</sp-button>
             </div>
         </>
     );
