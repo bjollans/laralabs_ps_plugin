@@ -99,6 +99,7 @@ export const LaraImageTable = ({jobId}) => {
     }
     
     useEffect(() => {
+        setCells([]);
         const pollUrl = imageBaseURI + jobId + "&poll=true";
         pollImageReadiness(pollUrl, 1000, 40)
             .then(() => Promise.all(imageIds.map(async (imageId) => await laraImageCell(imageId))))
