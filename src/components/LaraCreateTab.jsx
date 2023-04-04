@@ -17,7 +17,7 @@ export const LaraCreateTab = (props) => {
         const pluginFolder = await fs.getDataFolder();
         
         const myDoc = app.activeDocument;
-        const file = await pluginFolder.createFile("image.png", {overwrite: true});
+        const file = await pluginFolder.createFile("untitled.png", {overwrite: true});
         //Writing and reading to get it into PNG and then convert PNG to Base64
         await require('photoshop').core.executeAsModal(() => myDoc.saveAs.png(file));
         const readFile = await file.read({format: formats.binary});

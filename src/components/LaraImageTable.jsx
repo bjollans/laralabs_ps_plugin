@@ -104,12 +104,11 @@ export const LaraImageTable = ({jobId}) => {
         const pollUrl = imageBaseURI + jobId + "&poll=true";
         pollImageReadiness(pollUrl, 1000, 40)
             .then(() => Promise.all(imageIds.map(async (imageId) => await laraImageCell(imageId))))
-            .then((values) => setCells(values));
+            .then((values) => {
+                setCells(values);
+                setGenerationProgress(0);
+            });
       }, [jobId]);
-    
-    useEffect(() => {
-        setGenerationProgress(0);
-    }, [cells]);
 
     return (
         <>
