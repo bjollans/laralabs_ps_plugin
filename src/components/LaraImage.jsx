@@ -19,7 +19,7 @@ export const LaraImage = (props) => {
       <>
         <img 
         onClick={() => setSelected(!selected)}
-        class={selected? "laraimageselected" : "laraimage"} 
+        className={selected? "laraimageselected" : "laraimage"} 
         width={selected? props.width+10 : props.width} src={img} alt="icons" />
       </>
     );

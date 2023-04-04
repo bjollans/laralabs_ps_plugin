@@ -7,7 +7,7 @@ export const LaraCreateTab = (props) => {
         <div style={{marginTop: "10px"}}>
             <LaraPrompt style={{marginBottom:"100px"}} />
             <sp-divider size="m"></sp-divider>
-            <h2 class="spectrum-Heading spectrum-Heading--sizeS" style={{color:"#ffffff"}}>Results</h2>
+            <h2 className="spectrum-Heading spectrum-Heading--sizeS" style={{color:"#ffffff"}}>Results</h2>
             <LaraImageTable imageIds={["house7", "house8", "house9", "house10"]} />
         </div>
         
