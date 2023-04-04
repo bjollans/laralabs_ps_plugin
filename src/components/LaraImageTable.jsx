@@ -3,6 +3,7 @@ import { LaraImage } from "../components/LaraImage.jsx";
 import "../components/LaraImageTable.css";
 
 export const LaraImageTable = ({jobId}) => {
+    const [generationProgress, setGenerationProgress] = useState();
     const [selectedImg, setSelectedImg] = useState();
     const [cells, setCells] = useState([]);
     const imageBaseURI = 'https://y6uchwsnucplc5fl7riiza6hqy0wpmuf.lambda-url.eu-central-1.on.aws/?id=';
@@ -17,6 +18,7 @@ export const LaraImageTable = ({jobId}) => {
 
     const pollImageReadiness = async (url, delay, tries) => {
         if (tries < 1) return;
+        setGenerationProgress((40-tries)*7);
         console.log("polling with tries left: " + tries);
         return fetch(url).then(response => response.text()).then((text) => {
             if(!text.includes("ready")) {
@@ -105,6 +107,10 @@ export const LaraImageTable = ({jobId}) => {
             .then((values) => setCells(values));
       }, [jobId]);
     
+    useEffect(() => {
+        setGenerationProgress(0);
+    }, [cells]);
+
     return (
         <>
             <table>
@@ -112,6 +118,10 @@ export const LaraImageTable = ({jobId}) => {
                     {showTable()}
                 </tbody>
             </table>
+            <sp-progressbar style={generationProgress==0?{visibility: "hidden", height: "1px"}:{marginLeft:"8px"}}
+                max={100} value={generationProgress}>
+                <sp-label slot="label">Generating Art</sp-label>
+            </sp-progressbar>
             <sp-button 
                 style={{marginTop:"15px", marginLeft:"8px"}}
                 onClick={() => require('photoshop').core.executeAsModal(downloadIt)}
