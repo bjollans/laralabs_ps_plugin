@@ -70,7 +70,7 @@ export const LaraImageTable = ({jobId}) => {
     const updateSelected = (imageId, event) => {
         if (imageId == selectedImg) return;
         cleanSelected();
-        if (selectedImg) cellRefs[selectedImg].className = "";
+        if (selectedImg && selectedImg in cellRefs) cellRefs[selectedImg].className = "";
         cellRefs[imageId].className = "selectedImage";
         setSelectedImg(imageId);
     };
